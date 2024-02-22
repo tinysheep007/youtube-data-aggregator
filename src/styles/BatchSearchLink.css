@@ -1,0 +1,54 @@
+.batch-search-link-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .batch-search-link-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .batch-search-link-container form {
+    margin-bottom: 20px;
+  }
+  
+  .batch-search-link-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .batch-search-link-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .batch-search-link-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error {
+    color: #ff0000;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .channel-data {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .channel-data h2 {
+    margin-bottom: 10px;
+  }
+  

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/SearchByLink.css'; // Import the CSS file for styling
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
@@ -12,11 +13,10 @@ const SearchByLink = () => {
     setChannelLink(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Call a function to fetch data from the YouTube API using the channel link
-    console.log(extractChannelUsername(channelLink))
-    fetchData(channelLink);
+    await fetchData(channelLink);
   };
 
   const fetchData = async (channelLink) => {
@@ -65,7 +65,8 @@ const SearchByLink = () => {
   };
 
   return (
-    <div>
+    <div className="search-by-link-container"> {/* Apply styling class */}
+        <h2>Search by Channel Link</h2>
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
@@ -75,10 +76,11 @@ const SearchByLink = () => {
             />
             <button type="submit">Search</button>
         </form>
-        {error && <div>Error: {error}</div>}
+        {error && <div className="error">Error: {error}</div>}
         {channelData && channelData.items && channelData.items.length > 0 && (
           <div>
             <h2>Channel Data</h2>
+            <img src={channelData.items[0].snippet.thumbnails.medium.url} alt="Channel Thumbnail Access Failed" />
             <p>Title: {channelData.items[0].snippet.title}</p>
             <p>Description: {channelData.items[0].snippet.description}</p>
             <p>View Count: {channelData.items[0].statistics.viewCount}</p>

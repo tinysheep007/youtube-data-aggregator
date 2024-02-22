@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/BatchSearch.css'; // Import the CSS file for styling
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const BatchSearch = () => {
   const [queryList, setQueryList] = useState('');
   const [channelDataList, setChannelDataList] = useState([]);
-  const [errorMap, setErrorMap] = useState({});
+  const [errorQueries, setErrorQueries] = useState([]);
 
   const handleChange = (event) => {
     setQueryList(event.target.value);
@@ -15,17 +16,15 @@ const BatchSearch = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const queriesArray = queryList.split('\n').filter(query => query.trim() !== '');
+    setErrorQueries([]); // Clear previous error queries
 
     try {
       const fetchDataPromises = queriesArray.map(query => fetchData(query.trim()));
       const channelDataResults = await Promise.all(fetchDataPromises);
       setChannelDataList(channelDataResults);
-      setErrorMap({}); // Clear error map on successful fetch
     } catch (error) {
       console.error('Error fetching data:', error);
-      const errorObject = {};
-      queriesArray.forEach(query => errorObject[query] = error.message); // Store errors for each query
-      setErrorMap(errorObject);
+      setErrorQueries(prevErrorQueries => [...prevErrorQueries, error]); // Add error to the list
     }
   };
 
@@ -45,12 +44,13 @@ const BatchSearch = () => {
         throw new Error(`No channel found for "${query}"`);
       }
     } catch (error) {
-      throw error;
+      return { error, query }; // Return error and query together
     }
   };
 
   return (
-    <div>
+    <div className="batch-search-container"> {/* Apply styling class */}
+      <h2>Batch Search by Names</h2>
       <form onSubmit={handleSubmit}>
         <textarea
           placeholder="Enter YouTube usernames or channel links (one per line)"
@@ -59,25 +59,34 @@ const BatchSearch = () => {
         />
         <button type="submit">Search</button>
       </form>
-      {Object.keys(errorMap).map((query, index) => (
-        <div key={index}>
+      {errorQueries.length > 0 && (
+        <div className="error-container"> {/* Apply styling class */}
           <h2>Error</h2>
-          <p>Failed to fetch data for: {query}</p>
+          {errorQueries.map(({ error, query }, index) => (
+            <p key={index}>Failed to fetch data for: {query}. Reason: {error.message}</p>
+          ))}
         </div>
-      ))}
+      )}
       {channelDataList.map((channelData, index) => {
         return (
-          <div key={index}>
+          <div key={index} className="channel-data-container"> {/* Apply styling class */}
             <h2>Channel Data {index + 1}</h2>
             {channelData.items && channelData.items.map((channel, idx) => (
-              <div key={idx}>
+              <div key={idx} className="channel-details"> {/* Apply styling class */}
                 <p>Title: {channel.snippet.title}</p>
+                <img src={channelData.items[0].snippet.thumbnails.medium.url} alt="Channel Thumbnail Access Failed" />
                 <p>Description: {channel.snippet.description}</p>
                 <p>View Count: {channel.statistics.viewCount}</p>
                 <p>Video Count: {channel.statistics.videoCount}</p>
                 <p>Subscriber Count: {channel.statistics.subscriberCount}</p>
               </div>
             ))}
+            {/* Display message for failed queries */}
+            {channelData.error && (
+              <div className="channel-details">
+                <p>No channel found for: {channelData.query}</p>
+              </div>
+            )}
           </div>
         );
       })}

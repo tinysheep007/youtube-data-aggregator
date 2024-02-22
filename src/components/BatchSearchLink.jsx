@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/BatchSearchLink.css'; // Import the CSS file for styling
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const BatchSearchLink = () => {
   const [channelLinks, setChannelLinks] = useState('');
   const [channelDataList, setChannelDataList] = useState([]);
-  const [error, setError] = useState(null);
+  const [errorQueries, setErrorQueries] = useState([]);
 
   const handleChange = (event) => {
     setChannelLinks(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Split the input into individual channel links
     const linksArray = channelLinks.split('\n').filter(link => link.trim() !== '');
     // Call a function to fetch data from the YouTube API for each channel link
-    fetchBatchData(linksArray);
+    await fetchBatchData(linksArray);
   };
 
   const fetchBatchData = async (linksArray) => {
@@ -27,10 +28,10 @@ const BatchSearchLink = () => {
       // Wait for all promises to resolve
       const results = await Promise.all(promises);
       setChannelDataList(results);
-      setError(null); // Clear any previous errors
+      setErrorQueries([]); // Clear any previous errors
     } catch (error) {
       console.error('Error fetching data:', error);
-      setError(error.message);
+      setErrorQueries(linksArray.map(query => ({ error, query }))); // Store errors for each query
       setChannelDataList([]); // Clear any previous channel data
       // Handle errors here
     }
@@ -56,7 +57,7 @@ const BatchSearchLink = () => {
         return response.data;
       } else {
         // If no items are found, return null
-        return null;
+        return { query: channelLink }; // Return the query along with null data
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -79,7 +80,8 @@ const BatchSearchLink = () => {
   };
 
   return (
-    <div>
+    <div className="batch-search-link-container"> {/* Apply styling class */}
+        <h2>Batch Search by Search Link</h2>
         <form onSubmit={handleSubmit}>
             <textarea
                 placeholder="Enter YouTube channel links (one link per line)"
@@ -88,12 +90,20 @@ const BatchSearchLink = () => {
             />
             <button type="submit">Search</button>
         </form>
-        {error && <div>Error: {error}</div>}
+        {errorQueries.length > 0 && (
+          <div className="error-container"> {/* Apply styling class */}
+            <h2>Error</h2>
+            {errorQueries.map(({ error, query }, index) => (
+              <p key={index}>Failed to fetch data for: {query}. Reason: {error.message}</p>
+            ))}
+          </div>
+        )}
         {channelDataList.map((channelData, index) => (
-          <div key={index}>
+          <div key={index} className="channel-data"> {/* Apply styling class */}
             {channelData && channelData.items && channelData.items.length > 0 ? (
               <div>
                 <h2>Channel Data</h2>
+                <img src={channelData.items[0].snippet.thumbnails.medium.url} alt="Channel Thumbnail Access Failed" />
                 <p>Title: {channelData.items[0].snippet.title}</p>
                 <p>Description: {channelData.items[0].snippet.description}</p>
                 <p>View Count: {channelData.items[0].statistics.viewCount}</p>
@@ -101,7 +111,7 @@ const BatchSearchLink = () => {
                 {/* Add more statistics and snippet data here as needed */}
               </div>
             ) : (
-              <div>No channel found for this link</div>
+              <div>No channel found for: {channelData ? channelData.query : 'unknown'}</div>
             )}
           </div>
         ))}

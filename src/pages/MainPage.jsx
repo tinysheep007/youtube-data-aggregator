@@ -1,16 +1,16 @@
 import React from "react";
-import Search from "../components/Search";
+import "../styles/MainPageStyle.css"; // Import the CSS file for styling
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
-
 
 const MainPage = () => {
     return (
-        <div>
-            main page
-            <Search />
-            {/* <Link to="/bs"/> */}
+        <div className="main-container"> {/* Apply styling class */}
+            <h2>Welcome to the Home Page</h2>
+            <div className="description">
+                <p>Please use the header navigation bar according to your preference.</p>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default MainPage;

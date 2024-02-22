@@ -1,0 +1,57 @@
+/* BatchSearch.css */
+
+.batch-search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .batch-search-container form {
+    margin-bottom: 20px;
+  }
+  
+  .batch-search-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .batch-search-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .batch-search-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error-container {
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .channel-data-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .channel-data-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .channel-details {
+    margin-bottom: 10px;
+  }
+  
