@@ -1,4 +1,4 @@
-# # Youtube Data Aggregator
+# Youtube Data Aggregator
 
 To start the project, we just need to follow the create react app tutorials below.
 
@@ -12,6 +12,20 @@ The navigator header should be simple to use and click to move to other pages.
 2. The channels API only return limited information such as username, total subs count, total video count, and thumbnails. I wish to learn more about the API and maybe at least return a list of the videos from the channel.
 3. There's picturing loading error when I am accessing the thumbnails of channels. I have yet to find a solution to explain why sometimes it works and sometimes it doesn't. Without editing anycode, on the morning we can display and load up the picture, but at night we can't.
 4. I still need to refactor the code to make the API call into a individual module.
+
+## Project Showcase
+Home Page
+![image](https://github.com/tinysheep007/youtube-data-aggregator/assets/58338071/1f9e8d7a-6aea-4e13-b74c-3e6cb6d3c865)
+
+Search Page
+![image](https://github.com/tinysheep007/youtube-data-aggregator/assets/58338071/95b99f14-a245-4ae8-a7fb-5224ba7a2fbc)
+
+Batch Seach Page(NOTE: we are separating new search links on a new line by \n or pressing "Enter")
+![image](https://github.com/tinysheep007/youtube-data-aggregator/assets/58338071/a3ae30a6-fda1-4151-95e5-d7acb7f6f857)
+
+Some Error Handling:
+![image](https://github.com/tinysheep007/youtube-data-aggregator/assets/58338071/0bc53dd4-9dcc-43d1-a402-ee4c31540998)
+![image](https://github.com/tinysheep007/youtube-data-aggregator/assets/58338071/b55efcc4-babe-49de-88d6-67aacd21a5db)
 
 # Getting Started with Create React App
 
