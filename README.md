@@ -1,3 +1,18 @@
+# # Youtube Data Aggregator
+
+To start the project, we just need to follow the create react app tutorials below.
+
+This project allow you to get youtube data through channel names and links. It also allows user to type in a batch of input(separated by \n).
+
+The navigator header should be simple to use and click to move to other pages.
+
+## Difficulty Encountered
+
+1. I reazlied that the current Youtube V3 API(the free version) does not have the most updated information. Some of the newest channal that was created last year or so has no informatino at all in the API. Only old chaneels that were created a while ago has their old data. The data is also not updated to the current state. I found some mismatched when comparing youtube channels.
+2. The channels API only return limited information such as username, total subs count, total video count, and thumbnails. I wish to learn more about the API and maybe at least return a list of the videos from the channel.
+3. There's picturing loading error when I am accessing the thumbnails of channels. I have yet to find a solution to explain why sometimes it works and sometimes it doesn't. Without editing anycode, on the morning we can display and load up the picture, but at night we can't.
+4. I still need to refactor the code to make the API call into a individual module.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -8,23 +23,23 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Runs the app in the development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
+The page will reload when you make changes.
 You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
+Launches the test runner in the interactive watch mode.
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `build` folder.
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
+The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.

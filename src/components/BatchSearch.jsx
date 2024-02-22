@@ -79,6 +79,11 @@ const BatchSearch = () => {
                 <p>View Count: {channel.statistics.viewCount}</p>
                 <p>Video Count: {channel.statistics.videoCount}</p>
                 <p>Subscriber Count: {channel.statistics.subscriberCount}</p>
+                {channelData.items[0].statistics.videoCount !== 0 ? (
+                  <p>Views per Video Count: {Math.ceil(channelData.items[0].statistics.viewCount / channelData.items[0].statistics.videoCount)}</p>
+                  ) : (
+                  <p>Views per Video Count: N/A (video count is zero)</p>
+                )}
               </div>
             ))}
             {/* Display message for failed queries */}

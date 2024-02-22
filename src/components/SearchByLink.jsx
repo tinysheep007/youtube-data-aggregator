@@ -85,6 +85,11 @@ const SearchByLink = () => {
             <p>Description: {channelData.items[0].snippet.description}</p>
             <p>View Count: {channelData.items[0].statistics.viewCount}</p>
             <p>Subscriber Count: {channelData.items[0].statistics.subscriberCount}</p>
+            {channelData.items[0].statistics.videoCount !== 0 ? (
+              <p>Views per Video Count: {Math.ceil(channelData.items[0].statistics.viewCount / channelData.items[0].statistics.videoCount)}</p>
+              ) : (
+              <p>Views per Video Count: N/A (video count is zero)</p>
+            )}
             {/* Add more statistics and snippet data here as needed */}
           </div>
         )}
